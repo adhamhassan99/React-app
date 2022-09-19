@@ -14,9 +14,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch("https://jsonplaceholder.typicode.com/users")
+    fetch("https://reqres.in/api/users/")
       .then((response) => response.json())
-      .then((users) => this.setState({ monsters: users }));
+      .then((users) => this.setState({ monsters: users.data }));
   }
 
   handleChange = (e) => {
@@ -25,8 +25,10 @@ class App extends Component {
 
   render() {
     const { monsters, search } = this.state;
-    const filteredMonsters = monsters.filter((monster) =>
-      monster.name.toLowerCase().includes(search.toLowerCase())
+    const filteredMonsters = monsters.filter(
+      (monster) =>
+        monster.first_name.toLowerCase().includes(search.toLowerCase()) ||
+        monster.last_name.toLowerCase().includes(search.toLowerCase())
     );
 
     return (
